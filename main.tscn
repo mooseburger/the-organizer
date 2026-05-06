@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ctofakewnhey2"]
+
+[ext_resource type="Script" uid="uid://boc1ev4cpqmck" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://cgcguusy11f62" path="res://start_screen.gd" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dw26gnr7173tq" path="res://start_squiggle.tscn" id="3_h2yge"]
+
+[sub_resource type="Curve2D" id="Curve2D_lquwl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, 7, 0, 0, 0, 0, 1153, 6, 0, 0, 0, 0, 1150, 653, 0, 0, 0, 0, -4, 657, 0, 0, 0, 0, -1, 7)
+}
+point_count = 5
+
+[node name="Main" type="Node" unique_id=1366968153]
+script = ExtResource("1_0xm2m")
+
+[node name="StartScreen" type="CanvasLayer" parent="." unique_id=1658932289]
+script = ExtResource("2_1bvp3")
+squiggle_scene = ExtResource("3_h2yge")
+
+[node name="StartSplashTimer" type="Timer" parent="StartScreen" unique_id=178938425]
+wait_time = 0.1
+
+[node name="SquigglePath" type="Path2D" parent="StartScreen" unique_id=1009097105]
+curve = SubResource("Curve2D_lquwl")
+
+[node name="SquiggleSpawnLocation" type="PathFollow2D" parent="StartScreen/SquigglePath" unique_id=729774996]
+position = Vector2(-1, 7)
+rotation = -0.00086655095
+
+[connection signal="timeout" from="StartScreen/StartSplashTimer" to="StartScreen" method="_on_start_splash_timer_timeout"]

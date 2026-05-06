@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dw26gnr7173tq"]
+
+[ext_resource type="Script" uid="uid://crqidh8lxk5y2" path="res://start_squiggle.gd" id="1_4tx7o"]
+
+[node name="StartSquiggle" type="Node2D" unique_id=1650198709]
+script = ExtResource("1_4tx7o")
+
+[node name="SquiggleNotifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1652907607]
+
+[connection signal="screen_exited" from="SquiggleNotifier" to="." method="_on_squiggle_notifier_screen_exited"]
