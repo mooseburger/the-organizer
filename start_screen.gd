@@ -3,11 +3,14 @@ extends CanvasLayer
 @export var squiggle_scene: PackedScene
 
 var current_edge: int = 0
+# Arc-length-based ratios, inset ~100px from each corner of SquigglePath.
+# Corners sit at ≈ 0.32 / 0.50 / 0.82 / 1.00 because top/bottom are ~1154px and
+# left/right are ~650px — even quarters would straddle them.
 var edge_ranges: Array[Vector2] = [
-	Vector2(0, 0.25),
-	Vector2(0.26, 0.5),
-	Vector2(0.51, 0.75),
-	Vector2(0.76, 1)
+	Vector2(0.03, 0.29),  # top
+	Vector2(0.35, 0.47),  # right
+	Vector2(0.53, 0.79),  # bottom
+	Vector2(0.85, 0.97),  # left
 ]
 
 var active_squiggle_ratios: Array[float] = []
@@ -44,13 +47,14 @@ func _on_start_splash_timer_timeout() -> void:
 
 	# Set the mob's position to the random location.
 	squiggle.position = squiggle_spawn_location.position
-	squiggle.set_edge(get_edge_from_position(squiggle_spawn_location.position))
+	#squiggle.set_edge(get_edge_from_position(squiggle_spawn_location.position))
 
 	# Set the mob's direction perpendicular to the path direction.
 	var direction = squiggle_spawn_location.rotation + PI / 2
 
 	# Choose the velocity for the mob.
 	var velocity = Vector2(600, 0.0)
+	squiggle.rotate(direction)
 	squiggle.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
